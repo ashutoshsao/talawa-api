@@ -106,3 +106,40 @@ mongosh","version":"6.12.0|2.3.8"},"platform":"Node.js v20.18.1, LE","os":{"name
 {"t":{"$date":"2025-02-22T01:14:08.040+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:36848","uuid":{"uuid":{"$uuid":"1ef5fcbd-4913-45fe-bc66-7bc3600a941a"}},"connectionId":2195,"connectionCount":24}}
 {"t":{"$date":"2025-02-22T01:14:08.043+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"127.0.0.1:36854","uuid":{"uuid":{"$uuid":"48522796-7b00-46df-a5d1-3e2a9ec7edd8"}},"connectionId":2196,"connectionCount":25}}
 ```
+
+## Non-Docker
+
+When running the application without Docker, troubleshooting may require different approaches. This section covers basic troubleshooting strategies for non-Docker setups.
+
+### Status Validation
+
+You can check if the production server process is running using the `ps` command:
+
+```bash
+ps aux | grep "node ./dist/index.js"
+```
+
+This will show the process if it's running, including the process ID (PID) which you can use to manage the process.
+
+### Checking Running Ports
+
+To quickly check which application ports are running and which are not, you can use the provided port check script:
+
+```bash
+bash scripts/port-check/port.sh
+```
+
+Alternatively, you can check if a specific port is in use:
+
+```bash
+# Check if port 4000 (default API port) is in use
+lsof -i :4000
+# or
+netstat -tuln | grep 4000
+```
+
+### Viewing Application Logs
+
+The application uses Pino for logging. Logs are output to stdout/stderr by default.
+
+If the server is running in the foreground, logs will be displayed directly in the terminal where the server was started.

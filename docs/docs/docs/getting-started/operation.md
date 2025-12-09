@@ -33,11 +33,34 @@ docker compose up
 
 ### Production Server Shutdown
 
+#### Using Docker
+
 To stop the Docker Server, use this command:
 
 ```bash
 docker compose down
 ```
+
+#### Without Docker
+
+If the server is running in the foreground, you can stop it by pressing `Ctrl+C` in the terminal where it's running.
+
+If the server is running in the background, you can stop it using one of these methods:
+
+1. **Finding and stopping by process name**:
+   - Find the process:
+     ```bash
+     ps aux | grep "node ./dist/index.js"
+     ```
+   - Stop the process using the PID from the output:
+     ```bash
+     kill <PID>
+     ```
+
+2. **Using pkill** (Linux/MacOS):
+   ```bash
+   pkill -f "node ./dist/index.js"
+   ```
 
 ## Development Environment Operation
 
